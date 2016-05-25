@@ -2,38 +2,22 @@
 _Open-source utilities for Salesforce.com developers_
 
 ## Background
-[Sales is changing](http://blog.getpattern.com/some-post), and sales operations teams must continue to innovate while meeting the demands of sales leaders: setup top of funnel flows, dedupe enriched account lists, enforce processes across global teams.
+We’re dedicated to providing tools for Salesforce developers in an ever-changing world of sales so we’ve committed to open-sourcing the majority of our Salesforce code.
 
-It's inevitable that sales operations personnel need validation rules, workflow rules, visualforce pages and APEX.
-
-We think there aren't enough resources for Salesforce.com developers. Oftentimes discovering well-written, useful Salesforce materials is harder than building it yourself. Documentation is disparate. Code quality is variable. There is no go-to place for free Salesforce utilities. We got to thinking--
-
-> Why aren't there more open-source Salesforce repos?
-
-**We think it's hard enough to manage sales operations.** So we decided to open-source the Salesforce tools we use at [Pattern](https://www.getpattern.com). We hope this repository grows into the de facto standard for new Salesforce teams, and we encourage all Salesforce developers to contribute.
-
-Read more at our blog post [here](http://medium.com/@PatterEng/some-post).
+Read more in our [blog post](http://medium.com/@PatternEng/link-soon).
 
 ## Use cases
+
+In addition to Lead Utilities, we also include a basic `Mock` class for easier testing. We also recommend
+
 - Mock test suite (smartFactory?)
 - Lead Autoassign (Email Domain)
 - Lead Autoconversion (Email Domain)
-- [FUTURE]
-- Lead Router
-- Post to Slack framework
-- Scheduleable Shell
-- Deduper
 
 ## Installing
-### via [MavensMate](http://mavensmate.com/)
-
-### via your own IDE
-
-### via one-click deploy
-<a href="https://githubsfdeploy.herokuapp.com?owner=patternhq&repo=SalesforceTools">
-  <img alt="Deploy to Salesforce"
-       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
-</a>
+1. Add this code to your sandbox environment using your favorite IDE or the web-based Developer Console. We like [MavensMate](http://mavensmate.com/).
+2. Adjust as necessary based on your existing triggers (e.g. if you already have a Trigger for leads, reference the provided classes in your existing Trigger).
+3. Deploy using [change sets](https://developer.salesforce.com/trailhead/en/app_deployment/app_deployment_changesets) best practices.
 
 ## Testing
 98% Code Coverage
