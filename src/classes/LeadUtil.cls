@@ -1,28 +1,4 @@
 /**
- *  The MIT License (MIT)
- *
- *  Copyright (c) 2016 Pattern Technologies, Inc.
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to
- *  deal in the Software without restriction, including without limitation the
- *  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- *  sell copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- *  IN THE SOFTWARE.
- */
-
-/**
  *  Utilities for assigning, converting and routing Leads.
  *  Example usage:
  *
@@ -42,7 +18,7 @@ public class LeadUtil{
      * Converts leads to existing accounts based on account email domains.
      * @param List<Lead> leadList
      */
-    public static void maybeConvert(List<Lead> leadList){
+    public static void maybeConvert(List<Lead> leadList) {
         System.debug('LeadUtil.maybeConvert starting');
 
         /** <Lead.Email, Lead> */
@@ -55,8 +31,8 @@ public class LeadUtil{
         Map<String, Account> domainToAccount = new Map<String, Account>();
 
         // Unconverted leads with non-null Emails
-        for(Lead lead : leadList){
-            if(!lead.IsConverted && lead.Email != null){
+        for(Lead lead : leadList) {
+            if (!lead.IsConverted && lead.Email != null) {
                 System.debug(
                     'Lead: ' + lead.Id + ' domain: ' + lead.Email_Domain__c);
                 emailsToLeads.put(lead.Email, lead);
@@ -65,10 +41,10 @@ public class LeadUtil{
         }
 
         // We have leads with emails.
-        if(!emailsToLeads.isEmpty()){
+        if (!emailsToLeads.isEmpty()) {
             for (Account a : [SELECT ID, OwnerId, Email_Domain__c
                               FROM Account
-                              WHERE Email_Domain__c IN :emailDomains]){
+                              WHERE Email_Domain__c IN :emailDomains]) {
                 System.debug('Match: ' + a.Id + '/' + a.Email_Domain__c);
                 domainToAccount.put(a.Email_Domain__c, a);
             }
@@ -77,8 +53,8 @@ public class LeadUtil{
             if (!domainToAccount.isEmpty()) {
                 System.debug('We have account matches!');
                 // Create a list of leadconverts
-                List <Database.LeadConvert> lcList =
-                        new List <Database.LeadConvert>();
+                List<Database.LeadConvert> lcList =
+                        new List<Database.LeadConvert>();
 
                 // TODO: Move this to a shared class
                 LeadStatus convertStatus = [SELECT Id, MasterLabel
@@ -86,7 +62,7 @@ public class LeadUtil{
                                             WHERE IsConverted=TRUE LIMIT 1];
 
                 // Convert leads with matching accounts
-                for (Lead l : emailsToLeads.values()){
+                for (Lead l : emailsToLeads.values()) {
                     if (domainToAccount.keySet().contains(l.Email_Domain__c)) {
                         System.debug('Converting lead: ' + l.Id);
 
@@ -105,7 +81,7 @@ public class LeadUtil{
 
                 // Try to convert them
                 try {
-                    if(!lcList.isEmpty()) {
+                    if (!lcList.isEmpty()) {
                         System.debug('Converting leads!');
                         Database.LeadConvertResult[] lcrList =
                                 Database.convertLead(lcList);
@@ -122,7 +98,7 @@ public class LeadUtil{
      * This method assumes implementation during a `before` trigger.
      * @param List<Lead> leadList
      */
-    public static void maybeReassign(List<Lead> leadList){
+    public static void maybeReassign(List<Lead> leadList) {
         System.debug('AutoConversion.maybeReassign starting');
 
         /** <Lead.Email, Lead> */
@@ -135,8 +111,8 @@ public class LeadUtil{
         Map<String, Id> domainToOwner = new Map<String, Id>();
 
         // Do we have 'legit' leads? Unconverted leads with Emails
-        for(Lead l : leadList){
-            if(!l.IsConverted && l.Email != null){
+        for(Lead l : leadList) {
+            if (!l.IsConverted && l.Email != null) {
                 System.debug(
                     'Legit lead: ' + l.Id + ' domain: ' + l.Email_Domain__c);
                 emailsToLeads.put(l.Email, l);
@@ -150,15 +126,15 @@ public class LeadUtil{
                        FROM Lead
                        WHERE IsConverted = FALSE
                        AND Email NOT IN :emailsToLeads.keySet()
-                       AND Email_Domain__c IN :emailDomains]){
+                       AND Email_Domain__c IN :emailDomains]) {
             System.debug('Lead/Domain match: ' + l.Email_Domain__c);
             domainToOwner.put(l.Email_Domain__c, l.OwnerId);
         }
 
-        if (!domainToOwner.isEmpty()){
+        if (!domainToOwner.isEmpty()) {
             // Prepare a list of these leads for updating
-            for (Lead l : emailsToLeads.values()){
-                if (domainToOwner.keySet().contains(l.Email_Domain__c)){
+            for (Lead l : emailsToLeads.values()) {
+                if (domainToOwner.keySet().contains(l.Email_Domain__c)) {
                     System.debug('Lead assignment match: ' + l.Id);
                     l.OwnerId = domainToOwner.get(l.Email_Domain__c);
                     System.debug(
