@@ -8,11 +8,9 @@ Read more in our [blog post](http://medium.com/@PatternEng/link-soon).
 
 ## Use cases
 
-In addition to Lead Utilities, we also include a basic `Mock` class for easier testing. We also recommend
-
-- Mock test suite (smartFactory?)
-- Lead Autoassign (Email Domain)
-- Lead Autoconversion (Email Domain)
+1. **Leads auto-assigning to existing Lead Owners.** Sally the salesperson owns Leads from `acme.com`. When another Lead with an email `*@acme.com` is created, it's auto assigned to Sally.
+2. **Leads auto-converting to existing Accounts.** Roger the rep owns an Account with the custom field `Email Domain` set to `acme.com`. When a Lead with an email `*@acme.com` is created, the Lead is converted to the existing Account and assigned to the existing account Owner.
+3. In addition to Lead Utilities, we also include a basic `Mock` class for easier testing.
 
 ## Installing
 1. Add this code to your sandbox environment using your favorite IDE or the web-based Developer Console. We like [MavensMate](http://mavensmate.com/).
