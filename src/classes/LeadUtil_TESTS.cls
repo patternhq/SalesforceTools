@@ -34,32 +34,24 @@ public class LeadUtil_TESTS{
         User existingOwner = Mock.createUser();
         User newLeadOwner = Mock.createUser();
 
-        // Create a Lead
-        Lead l = Mock.createLead();
-        l.Email = 'first@' + domain;
-        l.OwnerId = existingOwner.Id;
-        update l;
+        Lead firstLead = Mock.createLead();
+        firstLead.Email = 'first@' + domain;
+        firstLead.OwnerId = existingOwner.Id;
+        update firstLead;
 
-        List<Lead> lList = [SELECT Id, Email_Domain__c, OwnerId
-                            FROM Lead
-                            WHERE Id =: l.Id
-                            LIMIT 1];
-        System.assertEquals(domain, lList[0].Email_Domain__c);
-        System.assertEquals(existingOwner.Id, lList[0].OwnerId);
-
-        Lead l2 = new Lead(
+        Lead routedLead = new Lead(
             FirstName='Joe',
             LastName='Schmoe',
             Company='Test',
             OwnerId=newLeadOwner.Id,
             Email=email);
-        insert l2;
+        insert routedLead;
 
         // OwnerId should be User 1 not User 2
-        List<Lead> lList2 = [SELECT Id, OwnerId
-                             FROM Lead
-                             WHERE Email = :email
-                             LIMIT 1];
-        System.assertEquals(existingOwner.Id, lList2[0].OwnerId);
+        List<Lead> leads = [SELECT Id, OwnerId
+                            FROM Lead
+                            WHERE Email = :email
+                            LIMIT 1];
+        System.assertEquals(existingOwner.Id, leads[0].OwnerId);
     }
 }
