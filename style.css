@@ -1,0 +1,159 @@
+/**
+ * Global
+ */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #F0F3F5;
+}
+
+/**
+ * Nav
+ */
+nav {
+  height: 64px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.nav-branding {
+  height: 64px;
+  margin-right: 28px;
+  padding: 24px 24px 0 24px;
+  text-align: center;
+}
+
+.logo {
+  fill: #9BA4A8;
+  height: 16px;
+  width: 16px;
+  vertical-align: top;
+}
+
+.nav-spacer {
+  min-width: 0;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.nav-message {
+
+}
+
+.nav-message span {
+  vertical-align: top;
+  display: inline-block;
+  font-family: "Whitney A","Whitney B","Helvetica","Arial",sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #627278;
+  padding: 23px 0;
+}
+
+.nav-message a {
+  letter-spacing: .010em;
+  border-radius: 3px;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  outline: 0;
+  border: 0;
+  display: inline-block;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: 0 0;
+  white-space: nowrap;
+  text-align: center;
+  font-style: inherit;
+  font-variant: inherit;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+  min-width: 32px;
+  min-height: 32px;
+  line-height: 32px;
+  margin: 16px 16px 0 8px;
+  padding: 0 12px;
+  font-family: "Whitney A","Whitney B","Helvetica","Arial",sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #38B7EA;
+  vertical-align: top;
+}
+
+.nav-message a:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+@media (max-width: 720px) {
+  .nav-message span {
+    display: none;
+  }
+}
+
+/**
+ * Content
+ */
+main {
+  padding: 0 8px;
+}
+
+.card {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.1),0 2px 4px 0 rgba(0,0,0,0.15);
+  background: #FFFFFF;
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto 16px;
+}
+
+.card-header {
+  padding: 32px 32px 26px;
+  border-bottom: 1px solid #E4E8EB;
+}
+
+.card-title {
+  font-family: "Whitney A","Whitney B","Helvetica","Arial",sans-serif;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 300;
+  color: #627278;
+}
+
+.card-content {
+  font-family: "Whitney A","Whitney B","Helvetica","Arial",sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #627278;
+  padding: 32px;
+}
+
+.card-content p:first-child {
+  margin-top: 0;
+}
+
+.card-content p:last-child {
+  margin-bottom: 0;
+}
