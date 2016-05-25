@@ -24,7 +24,7 @@ public class LeadUtil{
         /** <Lead.Email, Lead> */
         Map<String, Lead> emailsToLeads = new Map<String, Lead>();
 
-        /** <Email Domains> */
+        /** <EmailDomain> */
         Set<String> emailDomains = new Set<String>();
 
         /** <EmailDomain, Account> */

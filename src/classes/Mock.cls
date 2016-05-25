@@ -43,11 +43,13 @@ public class Mock {
     insert a;
     return a;
   }
+
   public static Account createAccountWithOwner(Id ownerId) {
     Account a = generateAccountWithOwner(ownerId);
     insert a;
     return a;
   }
+
   public static Account generateAccount() {
     return new Account(
         Name = TEST_STRING,
@@ -63,29 +65,16 @@ public class Mock {
     return a;
   }
 
-  //Create Test account with Parent
   public static Account createAccountWithParent(Id accountId) {
     Account a = generateAccountWithParent(accountId);
     insert a;
     return a;
   }
+
   public static Account generateAccountWithParent(Id parentId) {
     Account a = generateAccount();
     a.ParentId = parentId;
     return a;
-  }
-
-  // Attachments
-  public static Attachment createAttachment(Id parentId) {
-    Attachment a = generateAttachment(parentId);
-    insert a;
-    return a;
-  }
-  public static Attachment generateAttachment(Id parentId) {
-    return new Attachment(
-        ParentId = parentId,
-        Name = TEST_STRING,
-        Body = TEST_BLOB);
   }
 
   // Contacts
@@ -94,11 +83,12 @@ public class Mock {
     insert c;
     return c;
   }
+
   public static Contact generateContact(Id accountId) {
     return new Contact(
-        LastName = TEST_STRING,
-        AccountId = accountId,
-        MailingState = 'IL');
+        LastName=TEST_STRING,
+        AccountId=accountId,
+        MailingState='IL');
   }
 
   // Leads
@@ -107,13 +97,14 @@ public class Mock {
     insert l;
     return l;
   }
+
   public static Lead generateLead() {
     return new Lead (
-        FirstName = TEST_STRING,
-        LastName = TEST_STRING,
-        Company = 'Godot',
-        LeadSource = 'Inbound',
-        Email = generateRandomEmail());
+        FirstName=TEST_STRING,
+        LastName=TEST_STRING,
+        Company='Godot',
+        LeadSource='Inbound',
+        Email=generateRandomEmail());
   }
 
   // Lead Convert
@@ -131,14 +122,15 @@ public class Mock {
     insert o;
     return o;
   }
+
   public static Opportunity generateOpportunity(Id accountId) {
     Contact conObj = generateContact(accountId);
     insert conObj;
     return new Opportunity(
-        AccountId = accountId,
-        CloseDate = TEST_DATE,
-        Name = TEST_STRING,
-        StageName = TEST_STRING);
+        AccountId=accountId,
+        CloseDate=TEST_DATE,
+        Name=TEST_STRING,
+        StageName=TEST_STRING);
   }
 
   // Products
@@ -147,6 +139,7 @@ public class Mock {
     insert p;
     return p;
   }
+
   public static Product2 generateProduct() {
     return new Product2(
         Name = TEST_STRING,
@@ -159,6 +152,7 @@ public class Mock {
     insert t;
     return t;
   }
+
   public static Task generateTask() {
     return new Task();
   }
@@ -169,25 +163,26 @@ public class Mock {
     insert u;
     return u;
   }
+
   public static User generateUser() {
     String testString = generateRandomString(8);
     String testDomain = generateRandomString(8) + '.com';
     String testEmail = generateRandomEmail(testDomain);
     return new User(
-        LastName = testString,
-              Username = testEmail,
-        ProfileId = SYSADMIN_PROFILE_ID,
-        Alias = testString,
-        Email = testEmail,
-        EmailEncodingKey = 'ISO-8859-1',
-        LanguageLocaleKey = 'en_US',
-        LocaleSidKey = 'en_US',
-        TimeZoneSidKey = 'America/Los_Angeles');
+        LastName=testString,
+        Username=testEmail,
+        ProfileId=SYSADMIN_PROFILE_ID,
+        Alias=testString,
+        Email=testEmail,
+        EmailEncodingKey='ISO-8859-1',
+        LanguageLocaleKey='en_US',
+        LocaleSidKey='en_US',
+        TimeZoneSidKey='America/Los_Angeles');
   }
 
   public static Id SYSADMIN_PROFILE_ID {
     get {
-      if(null == SYSADMIN_PROFILE_ID) {
+      if (null == SYSADMIN_PROFILE_ID) {
         SYSADMIN_PROFILE_ID = [
             SELECT Id FROM Profile WHERE Name = 'System Administrator'][0].Id;
       }
@@ -210,11 +205,13 @@ public class Mock {
 
   public static String OPPTY_CLOSED_LOST_STAGE {
     get {
-      if(null == OPPTY_CLOSED_LOST_STAGE) {
+      if (null == OPPTY_CLOSED_LOST_STAGE) {
         OpportunityStage opptyStage = [
             SELECT MasterLabel
             FROM OpportunityStage
-            WHERE IsWon = FALSE AND IsClosed = TRUE LIMIT 1];
+            WHERE IsWon = FALSE
+            AND IsClosed = TRUE
+            LIMIT 1];
         OPPTY_CLOSED_LOST_STAGE = opptyStage.MasterLabel;
       }
       return OPPTY_CLOSED_LOST_STAGE;
@@ -225,32 +222,34 @@ public class Mock {
   public static String OPPTY_CLOSED_WON_STAGE
   {
     get {
-      if(null == OPPTY_CLOSED_WON_STAGE) {
+      if (null == OPPTY_CLOSED_WON_STAGE) {
         OpportunityStage opptyStage = [
             SELECT MasterLabel
             FROM OpportunityStage
-            WHERE IsWon = TRUE LIMIT 1];
+            WHERE IsWon = TRUE
+            LIMIT 1];
         OPPTY_CLOSED_WON_STAGE = opptyStage.MasterLabel;
       }
       return OPPTY_CLOSED_WON_STAGE;
     }
     private set;
   }
+
   public static String CONVERTED_LEAD_STATUS {
     get {
-      if(null == CONVERTED_LEAD_STATUS) {
+      if (null == CONVERTED_LEAD_STATUS) {
         CONVERTED_LEAD_STATUS = [
             SELECT MasterLabel
             FROM LeadStatus
-            WHERE IsConverted = TRUE LIMIT 1][0].MasterLabel;
+            WHERE IsConverted = TRUE
+            LIMIT 1][0].MasterLabel;
       }
       return CONVERTED_LEAD_STATUS;
     }
     private set;
   }
 
-
-  // fails if @seeAllData=true is not specified
+  // Note: This fails if @seeAllData=true is not included
   public static Pricebook2 STANDARD_PRICEBOOK {
     get {
       if (STANDARD_PRICEBOOK == null) {
@@ -270,25 +269,28 @@ public class Mock {
     insert oli;
     return oli;
   }
+
   public static OpportunityLineItem generateOpportunityLineItem(Id opportunityId, Id pricebookEntryId) {
     return new OpportunityLineItem(
-        OpportunityId = opportunityId,
-        PricebookEntryId = pricebookEntryId,
-        Quantity = DEFAULT_QUANTITY,
-        TotalPrice = DEFAULT_PRICE,
-        ServiceDate = System.today());
+        OpportunityId=opportunityId,
+        PricebookEntryId=pricebookEntryId,
+        Quantity=DEFAULT_QUANTITY,
+        TotalPrice=DEFAULT_PRICE,
+        ServiceDate=System.today());
   }
+
   // Opportunity Contact Roles
   public static OpportunityContactRole createOpportunityContactRole(Id opportunityId, Id contactId) {
     OpportunityContactRole ocr = generateOpportunityContactRole(opportunityId, contactId);
     insert ocr;
     return ocr;
   }
+
   public static OpportunityContactRole generateOpportunityContactRole(Id opportunityId, Id contactId) {
     return new OpportunityContactRole(
-        OpportunityId = opportunityId,
-        ContactId = contactId,
-        Role = DEFAULT_ROLE);
+        OpportunityId=opportunityId,
+        ContactId=contactId,
+        Role=DEFAULT_ROLE);
   }
 
   // Pricebook
@@ -297,16 +299,19 @@ public class Mock {
     insert pricebook;
     return pricebook;
   }
+
   public static Pricebook2 generatePricebook() {
-    return new Pricebook2(Name = TEST_STRING,
-                          IsActive = TRUE);
+    return new Pricebook2(
+        Name=TEST_STRING,
+        IsActive=TRUE);
   }
 
   // Pricebook Entries
-  // fails if seeAllDate=true not set
+  // Note: This fails if @seeAllData=true is not included
   public static PricebookEntry createPricebookEntry(Id productId, Id pricebookId) {
     return createPricebookEntries(new Id[] { productId }, pricebookId)[0];
   }
+
   public static List<PricebookEntry> createPricebookEntries(List<Id> productIds, Id pricebookId) {
     Set<Id> haveStandardPrice = new Set<Id>();
     for(PricebookEntry pbe : [
@@ -318,25 +323,27 @@ public class Mock {
     List<PricebookEntry> standardPBEs = new List<PricebookEntry>();
     List<PricebookEntry> pricebookEntries = new List<PricebookEntry>();
     for(Id productId : productIds) {
-      if(!haveStandardPrice.contains(productId)) {
+      if (!haveStandardPrice.contains(productId)) {
         standardPBEs.add(generatePricebookEntry(productId, STANDARD_PRICEBOOK.id));
       }
       pricebookEntries.add(generatePricebookEntry(productId, pricebookId));
     }
-      if(!standardPBEs.isEmpty()) {
+      if (!standardPBEs.isEmpty()) {
         insert standardPBEs;
         insert pricebookEntries;
         return pricebookEntries;
       }
   }
+
   private static PricebookEntry generatePricebookEntry(Id productId, Id pricebookId) {
     return new PricebookEntry(
-        Product2Id = productId,
-        Pricebook2Id = pricebookId,
-        IsActive = TRUE,
-        UnitPrice = DEFAULT_PRICE);
+        Product2Id=productId,
+        Pricebook2Id=pricebookId,
+        IsActive=TRUE,
+        UnitPrice=DEFAULT_PRICE);
   }
 
+  // Self-tests
   @isTest(seeAllData=true)
   private static void testProductCreators() {
     Pricebook2 pricebook = createPricebook();
@@ -352,7 +359,6 @@ public class Mock {
     assertIdNotNull(createOpportunityLineItem(testOppty.id, pricebookEntry.id));
   }
 
-  // Self-tests
   @isTest
   private static void testCloseWinOpportunity() {
     Opportunity testOppty = createOpportunity(createAccount().id);
@@ -371,7 +377,9 @@ public class Mock {
     Opportunity testOppty = createOpportunity(createAccount().id);
     closeLoseOpportunity(testOppty);
     update testOppty;
-    testOppty = [SELECT IsClosed, IsWon FROM Opportunity WHERE Id = :testOppty.Id];
+    testOppty = [SELECT IsClosed, IsWon
+                 FROM Opportunity
+                 WHERE Id = :testOppty.Id];
     system.assertEquals(TRUE, testOppty.IsClosed);
     system.assertEquals(FALSE, testOppty.IsWon);
   }
@@ -380,22 +388,11 @@ public class Mock {
   private static void testLeadConversion() {
     Lead testLead = createLead();
     Database.convertLead(getLeadConvertObject(testLead.Id));
-    testLead = [SELECT IsConverted, ConvertedOpportunityId FROM Lead WHERE Id = :testLead.Id];
+    testLead = [SELECT IsConverted, ConvertedOpportunityId
+                FROM Lead
+                WHERE Id = :testLead.Id];
     system.assertEquals(TRUE, testLead.isConverted);
     system.assert(testLead.ConvertedOpportunityId != null);
-  }
-
-  @isTest
-  private static void testRandomDoesNotRepeat() {
-    // With 36 potential characters, a single length string will have a 75% chance
-    // of recurring after 10 iterations.  To ensure we skip repeated randoms run through
-    // 10 iterations adding each to the set and confirm the final set size is 10.  Because
-    // this is probabilistic this test will catch a bug only 75% of the time.
-    Set<String> randoms = new Set<String>();
-    for(Integer i = 0; i < 10; i++) {
-      randoms.add(generateRandomString(1));
-    }
-    system.assertEquals(10, randoms.size());
   }
 
   @isTest
@@ -407,28 +404,36 @@ public class Mock {
 
   // Random Generator Helpers
   private static Set<String> priorRandoms;
-  public static String generateRandomString(){return generateRandomString(null);}
-  public static String generateRandomString(Integer length){
-    if(priorRandoms == null)
+
+  public static String generateRandomString() {
+    return generateRandomString(null);
+  }
+
+  public static String generateRandomString(Integer length) {
+    if (priorRandoms == null)
     priorRandoms = new Set<String>();
 
-    if(length == null) length = 1+Math.round( Math.random() * 8 );
+    if (length == null) length = 1+Math.round( Math.random() * 8 );
     String characters = 'abcdefghijklmnopqrstuvwxyz1234567890';
     String returnString = '';
-    while(returnString.length() < length){
+    while(returnString.length() < length) {
       Integer charpos = Math.round( Math.random() * (characters.length()-1) );
       returnString += characters.substring( charpos , charpos+1 );
     }
-    if(priorRandoms.contains(returnString)) {
+    if (priorRandoms.contains(returnString)) {
       return generateRandomString(length);
     } else {
       priorRandoms.add(returnString);
       return returnString;
     }
   }
-  public static String generateRandomEmail(){return generateRandomEmail(null);}
-  public static String generateRandomEmail(String domain){
-    if(domain == null || domain == '')
+
+  public static String generateRandomEmail() {
+    return generateRandomEmail(null);
+  }
+
+  public static String generateRandomEmail(String domain) {
+    if (domain == null || domain == '')
     domain = generateRandomString() + '.com';
     return generateRandomString() + '@' + domain;
   }
