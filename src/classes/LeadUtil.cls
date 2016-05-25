@@ -54,7 +54,7 @@ public class LeadUtil{
                 System.debug('We have account matches!');
                 // Create a list of leadconverts
                 List<Database.LeadConvert> lcList =
-                        new List<Database.LeadConvert>();
+                    new List<Database.LeadConvert>();
 
                 // TODO: Move this to a shared class
                 LeadStatus convertStatus = [SELECT Id, MasterLabel
@@ -84,9 +84,9 @@ public class LeadUtil{
                     if (!lcList.isEmpty()) {
                         System.debug('Converting leads!');
                         Database.LeadConvertResult[] lcrList =
-                                Database.convertLead(lcList);
+                            Database.convertLead(lcList);
                     }
-                } catch (system.dmlexception e) {
+                } catch (System.dmlexception e) {
                     System.debug('Leads not converted due to error: ' + e);
                 }
             }
