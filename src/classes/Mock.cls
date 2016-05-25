@@ -7,51 +7,24 @@ public class Mock {
       'You must call these from test methods');
   }
 
-  public static Decimal DEFAULT_PRICE = 1;
-  public static Decimal DEFAULT_QUANTITY = 1;
-  public static String DEFAULT_ROLE = 'Decision Maker';
-  public static Blob TEST_BLOB = Blob.valueOf(generateRandomString(16));
   public static Date TEST_DATE = System.today();
   public static String TEST_STRING = generateRandomString(16);
 
-  // Account Helpers
+  // Accounts
   public static Account createAccount() {
     Account a = generateAccount();
     insert a;
     return a;
   }
 
-  public static Account createAccountWithOwner(Id ownerId) {
-    Account a = generateAccountWithOwner(ownerId);
-    insert a;
-    return a;
-  }
-
   public static Account generateAccount() {
     return new Account(
-        Name = TEST_STRING,
+        Name=TEST_STRING,
         BillingStreet='Test Street',
         BillingCity='Test City',
         BillingState='IL',
         BillingPostalCode='60193',
         BillingCountry='United States');
-  }
-  public static Account generateAccountWithOwner(Id ownerId) {
-    Account a = generateAccount();
-    a.OwnerId = ownerId;
-    return a;
-  }
-
-  public static Account createAccountWithParent(Id accountId) {
-    Account a = generateAccountWithParent(accountId);
-    insert a;
-    return a;
-  }
-
-  public static Account generateAccountWithParent(Id parentId) {
-    Account a = generateAccount();
-    a.ParentId = parentId;
-    return a;
   }
 
   // Contacts
@@ -84,15 +57,6 @@ public class Mock {
         Email=generateRandomEmail());
   }
 
-  // Lead Convert
-  public static Database.LeadConvert getLeadConvertObject(Id leadId) {
-    Database.LeadConvert convertObject = new Database.Leadconvert();
-    convertObject.setLeadId(leadId);
-    convertObject.setConvertedStatus(CONVERTED_LEAD_STATUS);
-    convertObject.setDoNotCreateOpportunity(false);
-    return convertObject;
-  }
-
   // Opportunity
   public static Opportunity createOpportunity(Id accountId) {
     Opportunity o = generateOpportunity(accountId);
@@ -110,20 +74,7 @@ public class Mock {
         StageName=TEST_STRING);
   }
 
-  // Products
-  public static Product2 createProduct() {
-    Product2 p = generateProduct();
-    insert p;
-    return p;
-  }
-
-  public static Product2 generateProduct() {
-    return new Product2(
-        Name = TEST_STRING,
-        IsActive = true);
-  }
-
-  // Task
+  // Tasks
   public static Task createTask() {
     Task t = generateTask();
     insert t;
@@ -134,7 +85,7 @@ public class Mock {
     return new Task();
   }
 
-  // User
+  // Users
   public static User createUser() {
     User u = generateUser();
     insert u;
@@ -212,172 +163,8 @@ public class Mock {
     private set;
   }
 
-  public static String CONVERTED_LEAD_STATUS {
-    get {
-      if (null == CONVERTED_LEAD_STATUS) {
-        CONVERTED_LEAD_STATUS = [
-            SELECT MasterLabel
-            FROM LeadStatus
-            WHERE IsConverted = TRUE
-            LIMIT 1][0].MasterLabel;
-      }
-      return CONVERTED_LEAD_STATUS;
-    }
-    private set;
-  }
-
-  // Note: This fails if @seeAllData=true is not included
-  public static Pricebook2 STANDARD_PRICEBOOK {
-    get {
-      if (STANDARD_PRICEBOOK == null) {
-        STANDARD_PRICEBOOK = [
-            SELECT Name, IsActive
-            FROM Pricebook2
-            WHERE IsStandard = TRUE];
-      }
-      return STANDARD_PRICEBOOK;
-    }
-    private set;
-  }
-
-  // Opportunity Line Items
-  public static OpportunityLineItem createOpportunityLineItem(Id opportunityId, Id pricebookEntryId) {
-    OpportunityLineItem oli = generateOpportunityLineItem(opportunityId, pricebookEntryId);
-    insert oli;
-    return oli;
-  }
-
-  public static OpportunityLineItem generateOpportunityLineItem(Id opportunityId, Id pricebookEntryId) {
-    return new OpportunityLineItem(
-        OpportunityId=opportunityId,
-        PricebookEntryId=pricebookEntryId,
-        Quantity=DEFAULT_QUANTITY,
-        TotalPrice=DEFAULT_PRICE,
-        ServiceDate=System.today());
-  }
-
-  // Opportunity Contact Roles
-  public static OpportunityContactRole createOpportunityContactRole(Id opportunityId, Id contactId) {
-    OpportunityContactRole ocr = generateOpportunityContactRole(opportunityId, contactId);
-    insert ocr;
-    return ocr;
-  }
-
-  public static OpportunityContactRole generateOpportunityContactRole(Id opportunityId, Id contactId) {
-    return new OpportunityContactRole(
-        OpportunityId=opportunityId,
-        ContactId=contactId,
-        Role=DEFAULT_ROLE);
-  }
-
-  // Pricebook
-  public static Pricebook2 createPricebook() {
-    Pricebook2 pricebook = generatePricebook();
-    insert pricebook;
-    return pricebook;
-  }
-
-  public static Pricebook2 generatePricebook() {
-    return new Pricebook2(
-        Name=TEST_STRING,
-        IsActive=TRUE);
-  }
-
-  // Pricebook Entries
-  // Note: This fails if @seeAllData=true is not included
-  public static PricebookEntry createPricebookEntry(Id productId, Id pricebookId) {
-    return createPricebookEntries(new Id[] { productId }, pricebookId)[0];
-  }
-
-  public static List<PricebookEntry> createPricebookEntries(List<Id> productIds, Id pricebookId) {
-    Set<Id> haveStandardPrice = new Set<Id>();
-    for(PricebookEntry pbe : [
-        SELECT Product2Id
-        FROM PricebookEntry
-        WHERE Pricebook2.IsStandard = TRUE AND Product2Id in :productIds]) {
-      haveStandardPrice.add(pbe.Product2Id);
-    }
-    List<PricebookEntry> standardPBEs = new List<PricebookEntry>();
-    List<PricebookEntry> pricebookEntries = new List<PricebookEntry>();
-    for(Id productId : productIds) {
-      if (!haveStandardPrice.contains(productId)) {
-        standardPBEs.add(generatePricebookEntry(productId, STANDARD_PRICEBOOK.id));
-      }
-      pricebookEntries.add(generatePricebookEntry(productId, pricebookId));
-    }
-      if (!standardPBEs.isEmpty()) {
-        insert standardPBEs;
-        insert pricebookEntries;
-        return pricebookEntries;
-      }
-  }
-
-  private static PricebookEntry generatePricebookEntry(Id productId, Id pricebookId) {
-    return new PricebookEntry(
-        Product2Id=productId,
-        Pricebook2Id=pricebookId,
-        IsActive=TRUE,
-        UnitPrice=DEFAULT_PRICE);
-  }
-
-  // Self-tests
-  @isTest(seeAllData=true)
-  private static void testProductCreators() {
-    Pricebook2 pricebook = createPricebook();
-    assertIdNotNull(pricebook);
-    Product2 product = createProduct();
-    assertIdNotNull(product);
-    PricebookEntry pricebookEntry = createPricebookEntry(product.id, pricebook.id);
-    assertIdNotNull(pricebookEntry);
-    Account testAccount = createAccount();
-    Opportunity testOppty = generateOpportunity(testAccount.id);
-    testOppty.pricebook2Id = pricebook.id;
-    insert testOppty;
-    assertIdNotNull(createOpportunityLineItem(testOppty.id, pricebookEntry.id));
-  }
-
-  @isTest
-  private static void testCloseWinOpportunity() {
-    Opportunity testOppty = createOpportunity(createAccount().id);
-    closeWinOpportunity(testOppty);
-    update testOppty;
-    testOppty = [SELECT IsWon FROM Opportunity WHERE Id = :testOppty.Id];
-    System.assertEquals(TRUE, testOppty.IsWon);
-  }
-
-  private static void assertIdNotNull(SObject obj) {
-    system.assertNotEquals(null, obj.id);
-  }
-
-  @isTest
-  private static void testCloseLoseOpportunity() {
-    Opportunity testOppty = createOpportunity(createAccount().id);
-    closeLoseOpportunity(testOppty);
-    update testOppty;
-    testOppty = [SELECT IsClosed, IsWon
-                 FROM Opportunity
-                 WHERE Id = :testOppty.Id];
-    system.assertEquals(TRUE, testOppty.IsClosed);
-    system.assertEquals(FALSE, testOppty.IsWon);
-  }
-
-  @isTest
-  private static void testLeadConversion() {
-    Lead testLead = createLead();
-    Database.convertLead(getLeadConvertObject(testLead.Id));
-    testLead = [SELECT IsConverted, ConvertedOpportunityId
-                FROM Lead
-                WHERE Id = :testLead.Id];
-    system.assertEquals(TRUE, testLead.isConverted);
-    system.assert(testLead.ConvertedOpportunityId != null);
-  }
-
-  @isTest
-  private static void randomFunctionsTest() {
-    system.assertNotEquals(null, generateRandomString());
-    system.assertNotEquals(null, generateRandomEmail());
-    system.assertNotEquals(null, generateRandomUrl());
-  }
+  // TODO: OpportunityLineItem, OpportunityContactRole, Pricebook,
+  //       PricebookEntry, Products
 
   // Random Generator Helpers
   private static Set<String> priorRandoms;
@@ -414,7 +201,36 @@ public class Mock {
     domain = generateRandomString() + '.com';
     return generateRandomString() + '@' + domain;
   }
+
   public static String generateRandomUrl() {
     return 'http://' + generateRandomString() + '.com';
+  }
+
+  @isTest
+  private static void testCloseWinOpportunity() {
+    Opportunity testOppty = createOpportunity(createAccount().Id);
+    closeWinOpportunity(testOppty);
+    update testOppty;
+    testOppty = [SELECT IsWon FROM Opportunity WHERE Id = :testOppty.Id];
+    System.assertEquals(TRUE, testOppty.IsWon);
+  }
+
+  @isTest
+  private static void testCloseLoseOpportunity() {
+    Opportunity testOppty = createOpportunity(createAccount().Id);
+    closeLoseOpportunity(testOppty);
+    update testOppty;
+    testOppty = [SELECT IsClosed, IsWon
+                 FROM Opportunity
+                 WHERE Id = :testOppty.Id];
+    system.assertEquals(TRUE, testOppty.IsClosed);
+    system.assertEquals(FALSE, testOppty.IsWon);
+  }
+
+  @isTest
+  private static void randomFunctionsTest() {
+    system.assertNotEquals(null, generateRandomString());
+    system.assertNotEquals(null, generateRandomEmail());
+    system.assertNotEquals(null, generateRandomUrl());
   }
 }
