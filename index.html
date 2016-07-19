@@ -15,7 +15,7 @@
     <meta property="og:title" content="Pattern"/>
     <meta property="og:description" content="Pattern helps salespeople realize their full potential"/>
 
-    <link rel="stylesheet" type="text/css" href="style.css">    
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <nav>
@@ -42,11 +42,63 @@
     <main>
       <div class="card">
       <div class="card-header">
-        <div class="card-title">Sample title</div>
+        <div class="card-title">Pattern Salesforce Tools</div>
+        <p><em>Open-source utilities for Salesforce.com developers</em></p>
       </div>
       <div class="card-content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio facilis nam ratione, sed numquam, quas voluptatem delectus eligendi iusto eius odit sit tempora ut perferendis, illo vitae quidem maxime unde. Autem officia, labore, cumque sapiente tempora velit, commodi amet, et modi vitae hic omnis deleniti! Odit laborum aspernatur sunt, recusandae ratione aliquid dolor neque dolores ad. Numquam doloribus beatae exercitationem deserunt voluptas pariatur voluptates sunt perferendis amet ad quae, aspernatur voluptatum provident voluptatibus expedita, odio ab enim iusto iste illum recusandae?</p>
-        <p>Fugiat optio quod voluptas hic voluptatibus sint laudantium deserunt tempore iure, nulla obcaecati vero eveniet et doloremque soluta possimus deleniti non alias placeat quam, debitis. Quos itaque temporibus quis assumenda illum a iste aperiam voluptatibus maxime aut porro placeat sed culpa totam cumque harum, ea repellat velit odit voluptatem. Sed impedit id quisquam cum iure corrupti aliquam fugiat voluptatibus labore. Necessitatibus ut blanditiis ullam, id optio, saepe doloremque at?</p>
+        <h2>Background</h2>
+
+        <p>We’re dedicated to providing tools for Salesforce developers in an ever-changing world of sales so we’ve committed to open-sourcing the majority of our Salesforce code.</p>
+
+        <p>Read more in our <a href="http://medium.com/@PatternEng/link-soon">blog post</a>.</p>
+
+        <h2>Use Cases</h2>
+
+        <ol>
+        <li><strong>Leads auto-assigning to existing Lead Owners.</strong> Sally the salesperson owns Leads from <code>acme.com</code>. When another Lead with an email <code>*@acme.com</code> is created, it's auto assigned to Sally.</li>
+        <li><strong>Leads auto-converting to existing Accounts.</strong> Roger the rep owns an Account with the custom field <code>Email Domain</code> set to <code>acme.com</code>. When a Lead with an email <code>*@acme.com</code> is created, the Lead is converted to the existing Account and assigned to the existing account Owner. This supports multiple domains, e.g. <code>@acme.com</code>, <code>@acme.co</code>, <code>@acme.io</code>.</li>
+        <li>In addition to Lead Utilities, we include a <strong>basic Mock-like class</strong> for easier testing (We know that's your favorite part of Force.com.)</li>
+        </ol>
+
+        <h2>Installing</h2>
+
+        <h3>via Unmanaged Package</h3>
+
+        <p>For your convenience, we've created an unmanaged package with all the components. You can <a href="https://login.salesforce.com/packaging/installPackage.apexp?p0=04to00000004AnT">install to Production</a> or <a href="https://test.salesforce.com/packaging/installPackage.apexp?p0=04to00000004AnT">install to Sandbox</a>.</p>
+
+        <h3>via IDE + Change Sets</h3>
+
+        <ol>
+        <li>Add this code to your sandbox environment using your favorite IDE or the web-based Developer Console. We like <a href="http://mavensmate.com/">MavensMate</a>.</li>
+        <li>Adjust as necessary based on your existing triggers (e.g. if you already have a Trigger for leads, reference the provided classes in your existing Trigger).</li>
+        <li>Deploy using <a href="https://developer.salesforce.com/trailhead/en/app_deployment/app_deployment_changesets">change sets</a> best practices.</li>
+        </ol>
+
+        <h2>Configuring</h2>
+
+        <p>Once installed, automatic lead conversion will only occur for Accounts with the populated <code>Email Domain</code> field. (We've purposely left final task for you because we know each organization is unique.) As always, we suggest doing this in bulk.</p>
+
+        <p><a href="https://github.com/patternhq/SalesforceTools/blob/gh-pages/SFDCEmailDomain.png" target="_blank"><img src="https://github.com/patternhq/SalesforceTools/raw/gh-pages/SFDCEmailDomain.png" alt="Email Domain in action" title="Email Domain in action" style="max-width:100%;"></a></p>
+
+        <h2>Future Work</h2>
+
+        <p>Please use <a href="https://github.com/patternhq/SalesforceTools/issues">GitHub Issues</a> to explore planned features, recommend new components, or help contribute.  </p>
+
+        <h2>Testing</h2>
+
+        <p>98% Code Coverage.</p>
+
+        <h2>Contributing</h2>
+
+        <p>See our <a href="https://github.com/patternhq/SalesforceTools/blob/master/CONTIRBUTING.md">CONTIRBUTING</a> guidelines.</p>
+
+        <h2>About Us</h2>
+
+        <p>We're former sales ops, sales leaders, and sales engineers. In addition to maintaining this repo, we're building a new workspace for salespeople. Learn more at <a href="https://www.getpattern.com?utm_source=github&amp;utm_medium=repo&amp;utm_campaign=salesforcetools">getpattern.com</a>.</p>
+
+        <h2>License</h2>
+
+        <p>MIT</p>
       </div>
     </div>
     </main>
