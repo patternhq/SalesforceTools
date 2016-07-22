@@ -1,0 +1,7 @@
+# Mavensmate
+*.sublime-project
+*.sublime-settings
+*.sublime-workspace
+mm*.log
+config/*
+deploy/*
