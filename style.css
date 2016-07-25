@@ -12,6 +12,14 @@ body {
   background-color: #F0F3F5;
 }
 
+a {
+  color: #38B7EA;
+}
+
+a:hover {
+  color: #17A1D8;
+}
+
 /**
  * Nav
  */
