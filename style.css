@@ -141,16 +141,13 @@ main {
   border-bottom: 1px solid #E4E8EB;
 }
 
-.card-header-badge-right {
-  float: right;
-}
-
 .card-title {
   font-family: "Whitney A","Whitney B","Helvetica","Arial",sans-serif;
   font-size: 24px;
   line-height: 24px;
   font-weight: 300;
   color: #627278;
+  text-align: center;
 }
 
 .card-content {
@@ -162,10 +159,36 @@ main {
   padding: 32px;
 }
 
+.card-subheader {
+  
+}
+
+.card-subtitle {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.card-badges {
+  width: 250px;
+  margin: 0 auto;
+}
+
 .card-content h2 {
   font-size: 16px;
   line-height: 16px;
   margin-top: 48px;
+  margin-bottom: 16px;
+}
+
+.card-content h3 {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 64px;
   margin-bottom: 16px;
 }
 
@@ -229,10 +252,12 @@ main {
 
 .view-on-github-btn:hover {
   background-color: #17A1D8;
+  color: #FFFFFF;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1),
               0 4px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
 .view-on-github-btn:active {
   background-color: #17A1D8;
+  color: #FFFFFF;
 }
