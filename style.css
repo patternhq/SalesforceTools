@@ -168,3 +168,63 @@ main {
 .card-content p:last-child {
   margin-bottom: 0;
 }
+
+.view-on-github-section {
+  text-align: center;
+  margin: 24px 0;
+}
+
+.view-on-github-btn {
+  letter-spacing: .010em;
+  border-radius: 3px;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  outline: 0;
+  border: 0;
+  display: inline-block;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 6px;
+  margin: 6px 8px;
+  line-height: 36px;
+  min-height: 36px;
+  background: 0 0;
+  white-space: nowrap;
+  min-width: 88px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 14px;
+  font-style: inherit;
+  font-variant: inherit;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: box-shadow .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1);
+
+  font-family: "Whitney A","Whitney B","Helvetica","Arial",sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0 12px;
+  background-color: #38B7EA;
+  color: #FFFFFF;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.1),
+              0 1px 2px 0 rgba(0,0,0,0.15);
+}
+
+.view-on-github-btn:hover {
+  background-color: #17A1D8;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1),
+              0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.view-on-github-btn:active {
+  background-color: #17A1D8;
+}
