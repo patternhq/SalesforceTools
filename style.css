@@ -172,8 +172,7 @@ main {
 }
 
 .card-badges {
-  width: 250px;
-  margin: 0 auto;
+  text-align: center;
 }
 
 .card-content h2 {
